@@ -1,0 +1,35 @@
+{
+  "name": "redux-object-to-promise",
+  "version": "0.1.0",
+  "description": "Redux middleware to transform an object into a promise",
+  "main": "build/index.js",
+  "jsnext:main": "src/index.js",
+  "files": [
+    "build",
+    "src"
+  ],
+  "scripts": {
+    "test": "make test",
+    "prepublish": "make build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mathieudutour/redux-object-to-promise.git"
+  },
+  "homepage": "https://github.com/mathieudutour/redux-object-to-promise",
+  "keywords": [
+    "redux",
+    "promise",
+    "middleware",
+    "redux-middleware",
+    "object"
+  ],
+  "author": "Mathieu Dutour <mathieu@dutour.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "@mathieudutour/js-fatigue": "^1.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.9.1"
+  }
+}
