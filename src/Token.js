@@ -1,9 +1,10 @@
 export default ({storage = window.localStorage, key = 'token-key'}) => {
-  let token
-  if (typeof storage.getItem(key) === 'string') {
-    token = storage.getItem(key)
-  } else {
-    storage.getItem(key).then((res) => { token = res })
+  let token = ''
+  const getter = storage.getItem(key)
+  if (typeof getter === 'string') {
+    token = getter
+  } else if (getter && getter.then) {
+    getter.then((res) => { token = res })
   }
   return {
     set (t) {
