@@ -18,7 +18,12 @@ First, import the middleware creator and include it in `applyMiddleware` when cr
 import middleware from 'redux-object-to-promise';
 
 composeStoreWithMiddleware = applyMiddleware(
-	middleware(axiosOptions, tokenOptions)
+	middleware({
+		keyIn = 'promise',
+	  keyOut = 'promise',
+	  axiosOptions = {},
+	  tokenOptions = {storage = window.localStorage, key = 'token-key'}
+	})
 )(createStore);
 
 ```

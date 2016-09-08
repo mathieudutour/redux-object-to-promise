@@ -1,12 +1,17 @@
 import axios from 'axios'
 import Token from './Token'
 
-export default ({transformResponse = [], ...axiosOptions} = {}, tokenOptions) => {
+export default ({
+  keyIn = 'promise',
+  keyOut = 'promise',
+  axiosOptions = {},
+  tokenOptions = {}
+} = {}) => {
   const token = new Token(tokenOptions)
 
   return () => next => action => {
     // check if we don't need to transform the promise
-    if (!action.meta || !action.meta.promise || typeof action.meta.promise !== 'object') {
+    if (!action.meta || !action.meta[keyIn] || typeof action.meta[keyIn] !== 'object') {
       return next(action)
     }
 
@@ -17,14 +22,16 @@ export default ({transformResponse = [], ...axiosOptions} = {}, tokenOptions) =>
       removeToken = false,
       authenticated = true,
       ...rest
-    } = action.meta.promise
+    } = action.meta[keyIn]
 
     if (authenticated) {
       headers['x-access-token'] = token.get()
     }
 
+    const {transformResponse = [], ...restOfAxiosOptions} = axiosOptions
+
     const promise = axios({
-      ...axiosOptions,
+      ...restOfAxiosOptions,
       method: method.toLowerCase(),
       headers,
       transformResponse: [data => {
@@ -48,7 +55,7 @@ export default ({transformResponse = [], ...axiosOptions} = {}, tokenOptions) =>
       ...action,
       meta: {
         ...action.meta,
-        promise
+        [keyOut]: promise
       }
     }
 
