@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Token from './Token'
 
-export default ({transformResponse = [], ...axiosOptions}, tokenOptions) => {
+export default ({transformResponse = [], ...axiosOptions} = {}, tokenOptions) => {
   const token = new Token(tokenOptions)
 
   return () => next => action => {

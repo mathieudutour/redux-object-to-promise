@@ -1,4 +1,4 @@
-export default ({storage = window.localStorage, key = 'token-key'}) => {
+export default ({storage = window.localStorage, key = 'token-key'} = {}) => {
   let token = ''
   const getter = storage.getItem(key)
   if (typeof getter === 'string') {
