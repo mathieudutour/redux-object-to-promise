@@ -59,6 +59,10 @@ export default ({
       }
     }
 
+    if (keyOut !== keyIn) {
+      delete actionToDispatch.meta[keyIn]
+    }
+
     return next(actionToDispatch)
   }
 }
