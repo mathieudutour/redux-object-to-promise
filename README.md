@@ -19,7 +19,7 @@ import middleware from 'redux-object-to-promise';
 
 composeStoreWithMiddleware = applyMiddleware(
 	middleware({
-		keyIn = 'promise',
+	  keyIn = 'promise',
 	  keyOut = 'promise',
 	  axiosOptions = {},
 	  tokenOptions = {storage = window.localStorage, key = 'token-key'}
@@ -55,7 +55,7 @@ will dispatch
 	payload: {
 		text: 'use redux-optimist-promise'
 	},
-	optimist: axiosPromise({url: '/todo', method: 'post', data: {text}})
+	promise: axiosPromise({url: '/todo', method: 'post', data: {text}})
 }
 ```
 
