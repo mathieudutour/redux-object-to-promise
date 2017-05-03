@@ -59,6 +59,22 @@ will dispatch
 }
 ```
 
+## Usage with React-native
+
+```js
+import { AsyncStorage } from 'react-native';
+import middleware from 'redux-object-to-promise';
+
+composeStoreWithMiddleware = applyMiddleware(
+	middleware({
+	  tokenOptions: {
+			storage: AsyncStorage
+		}
+	})
+)(createStore);
+
+```
+
 ## License
 
   MIT
