@@ -18,12 +18,12 @@ First, import the middleware creator and include it in `applyMiddleware` when cr
 import middleware from 'redux-object-to-promise';
 
 composeStoreWithMiddleware = applyMiddleware(
-	middleware({
-	  keyIn = 'promise',
-	  keyOut = 'promise',
-	  axiosOptions = {},
-	  tokenOptions = {storage = window.localStorage, key = 'token-key'}
-	})
+  middleware({
+    keyIn = 'promise',
+    keyOut = 'promise',
+    axiosOptions = {},
+    tokenOptions = { storage = window.localStorage, key = 'token-key' }
+  })
 )(createStore);
 
 ```
@@ -35,42 +35,42 @@ Example:
 The below action creator, when triggered `dispatch(addTodo('use redux-object-to-promise'))`
 
 ```js
-export function addTodo(text) {
-	return {
-		type: 'ADD_TODO',
-		payload: {
-			text
-		},
-		meta: {
-			promise: {url: '/todo', method: 'post', data: {text}},
-		}
-	};
+export function addTodo (text) {
+  return {
+    type: 'ADD_TODO',
+    payload: {
+      text
+    },
+    meta: {
+      promise: { url: '/todo', method: 'post', data: { text } },
+    }
+  }
 }
 ```
 
 will dispatch
 ```js
 {
-	type: 'ADD_TODO',
-	payload: {
-		text: 'use redux-optimist-promise'
-	},
-	promise: axiosPromise({url: '/todo', method: 'post', data: {text}})
+  type: 'ADD_TODO',
+  payload: {
+    text: 'use redux-optimist-promise'
+  },
+  promise: axiosPromise({ url: '/todo', method: 'post', data: { text } })
 }
 ```
 
 ## Usage with React-native
 
 ```js
-import { AsyncStorage } from 'react-native';
-import middleware from 'redux-object-to-promise';
+import { AsyncStorage } from 'react-native'
+import middleware from 'redux-object-to-promise'
 
 composeStoreWithMiddleware = applyMiddleware(
-	middleware({
-	  tokenOptions: {
-			storage: AsyncStorage
-		}
-	})
+  middleware({
+    tokenOptions: {
+      storage: AsyncStorage
+    }
+  })
 )(createStore);
 
 ```
