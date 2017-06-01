@@ -24,19 +24,28 @@ export default ({
       ...rest
     } = action.meta[keyIn]
 
-    if (authenticated) {
-      headers['x-access-token'] = token.get()
-    }
-
     const {transformResponse = [], ...restOfAxiosOptions} = axiosOptions
 
-    const promise = axios({
+    let promise = Promise.resolve()
+
+    if (authenticated) {
+      const _token = token.get()
+      if (_token.then) {
+        promise = _token.then((accessToken) => {
+          headers['x-access-token'] = accessToken
+        })
+      } else {
+        headers['x-access-token'] = _token
+      }
+    }
+
+    promise = promise.then(() => axios({
       ...restOfAxiosOptions,
       method: method.toLowerCase(),
       headers,
       transformResponse: [data => {
         if (removeToken) {
-          token.set(null)
+          token.remove()
         }
         try {
           const parsedData = JSON.parse(data)
@@ -49,7 +58,7 @@ export default ({
         }
       }, ...transformResponse],
       ...rest
-    })
+    }))
 
     const actionToDispatch = {
       ...action,

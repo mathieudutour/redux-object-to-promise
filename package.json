@@ -1,6 +1,6 @@
 {
   "name": "redux-object-to-promise",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Redux middleware to transform an object into a promise",
   "main": "build/index.js",
   "jsnext:main": "src/index.js",
@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "test": "make test",
+    "test": "make lint",
     "prepublish": "make build"
   },
   "repository": {

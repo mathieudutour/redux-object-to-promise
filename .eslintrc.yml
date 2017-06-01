@@ -1,0 +1,7 @@
+---
+extends:
+  - standard
+  - plugin:import/warnings
+  - plugin:import/errors
+rules:
+  arrow-parens: 0
