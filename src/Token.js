@@ -14,7 +14,7 @@ export default ({storage = window.localStorage, key = 'token-key'} = {}) => {
   return {
     set (t) {
       token = t
-      return storage.setItem(key, t)
+      return storage.setItem(key, t || '')
     },
     get () {
       if (ready) {
