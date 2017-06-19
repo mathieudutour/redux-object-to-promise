@@ -30,7 +30,7 @@ export default ({
 
     if (authenticated) {
       const _token = token.get()
-      if (_token.then) {
+      if (_token && _token.then) {
         promise = _token.then((accessToken) => {
           headers['x-access-token'] = accessToken
         })
