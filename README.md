@@ -6,7 +6,7 @@ redux-object-to-promise
 
 Redux [middleware](http://rackt.github.io/redux/docs/advanced/Middleware.html) middleware to transform an object into a promise.
 
-```js
+```bash
 npm install --save redux-object-to-promise
 ```
 
