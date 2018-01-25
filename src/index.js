@@ -43,11 +43,13 @@ export default ({
     const CancelToken = axios.CancelToken
     const source = CancelToken.source()
 
-    setTimeout(() => {
-      if (!finished) {
-        source.cancel('Timeout of ' + timeout + 'ms exceeded.')
-      }
-    }, timeout)
+    if (timeout > 0) {
+      setTimeout(() => {
+        if (!finished) {
+          source.cancel('Timeout of ' + timeout + 'ms exceeded.')
+        }
+      }, timeout)
+    }
 
     promise = promise.then(() => axios({
       ...restOfAxiosOptions,
@@ -70,8 +72,12 @@ export default ({
         }
       }, ...transformResponse],
       ...rest
-    }).then(() => {
+    }).then(res => {
       finished = true
+      return res
+    }).catch(err => {
+      finished = true
+      throw err
     }))
 
     const actionToDispatch = {
