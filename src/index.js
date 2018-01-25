@@ -74,7 +74,7 @@ export default ({
       ...rest
     }).then(res => {
       finished = true
-      return res
+      return Promise.resolve(res)
     }).catch(err => {
       finished = true
       throw err
