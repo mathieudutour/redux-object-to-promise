@@ -1,6 +1,6 @@
 {
   "name": "redux-object-to-promise",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Redux middleware to transform an object into a promise",
   "main": "build/index.js",
   "jsnext:main": "src/index.js",
@@ -31,6 +31,6 @@
     "@mathieudutour/js-fatigue": "^1.0.2"
   },
   "dependencies": {
-    "axios": "^0.13.1"
+    "axios": "^0.17.1"
   }
 }

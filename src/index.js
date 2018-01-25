@@ -24,7 +24,7 @@ export default ({
       ...rest
     } = action.meta[keyIn]
 
-    const {transformResponse = [], ...restOfAxiosOptions} = axiosOptions
+    const {transformResponse = [], timeout, ...restOfAxiosOptions} = axiosOptions
 
     let promise = Promise.resolve()
 
@@ -39,10 +39,24 @@ export default ({
       }
     }
 
+    let finished = false
+    const CancelToken = axios.CancelToken
+    const source = CancelToken.source()
+
+    if (timeout > 0) {
+      setTimeout(() => {
+        if (!finished) {
+          source.cancel('Timeout of ' + timeout + 'ms exceeded.')
+        }
+      }, timeout)
+    }
+
     promise = promise.then(() => axios({
       ...restOfAxiosOptions,
       method: method.toLowerCase(),
+      cancelToken: source.token,
       headers,
+      timeout,
       transformResponse: [data => {
         if (removeToken) {
           token.remove()
@@ -58,6 +72,12 @@ export default ({
         }
       }, ...transformResponse],
       ...rest
+    }).then(res => {
+      finished = true
+      return res
+    }).catch(err => {
+      finished = true
+      throw err
     }))
 
     const actionToDispatch = {
